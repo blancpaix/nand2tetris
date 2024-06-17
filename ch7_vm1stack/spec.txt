@@ -1,0 +1,41 @@
+VM 구현
+
+스택과 가상 메모리 세그먼트들은 대상 플랫폼에서 반드시 구현되어야 함
+VM명령을 대상 플랫폼에서도 동일하게 작동해야 함
+
+표준 매핑 - "플랫폼 독립성" => 모든 하드웨어에서 실행 가능!
+
+- VM 에서 핵으로 변역
+	.vm 확장자 파일 입력받아서 .asm 파일 하나 출력
+	VM 번역기는 VM 명령들을 어셈블리 코드로 번역
+- RAM 사용
+	총 32K 16bit 단어들로 구성
+	16K 다용도
+	16K IO 장치
+	
+	0~15까지의 주소는 R0~R15로 참조
+	0~4 : SP, LCL, ARG, THIS, THAT 으로 참조
+		sp : stack point
+		lcl : local 세그먼트의기저 주소
+		arg : argument 세그먼트의 기저주소
+		this : this 세그먼트의 시작 주소 (힙 내부)
+		that : that 세그먼트의 시작 주소 (힙 내부)
+		
+	i 번째 항목 접근 : RAM 상의 (base + i) 주소에 접근하는 어셈블리 코드로 번역 : base 는 현재 세그먼트 전역 레지스터에 저장된 값
+	pointer, temp : RAM 내의 고정영역으로 바로 매핑
+		pointer : THIS , THAT
+			pointer i : 3 + i
+		temp : 5 ~ 12
+			temp i : 5 + i
+	constant : 가상세그먼트, 실 공간 X
+		상수 i를 제공하는 방식으로 처리
+	
+	static : 새로운 기호는 16부터 시작하는 RAM 주소 할당
+	
+	
+pop 이 가능한 세그먼트?
+	local, argument, this, that, pointer, temp, static
+	
+	pointer는 왜 0, 1 고정임??
+	
+	
