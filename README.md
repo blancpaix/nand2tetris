@@ -1,4 +1,4 @@
-Jack language compiler
+밑바닥부터 만드는 컴퓨팅 시스템 - Jack language compiler
 
 [규칙]
   - 'xxx' : 홑따옴표 볼드체는 글자 그대로 토큰에 사용 (단말)
